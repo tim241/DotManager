@@ -29,8 +29,8 @@ namespace DotManager.Utils.Parser
         public static void CreateExample()
         {
             Create("example.yaml",
-                    "arch", "base-devel clang", "$HOME", new string[] { "dots/.config", "dots/.vimrc", "dots/.weechat" },
-                    "steam origin", @"\Users\%USER%", new string[] { "windowsDots/" });
+                    "arch", "base-devel clang", "$HOME", new string[] { "Source/Utils/Env/Path.cs", "Source/Utils/OS/Check.cs", "Source/Utils/OS/Linux.cs" },
+                    "steam origin", @"\Users\%USERNAME%", new string[] { "Source/" });
         }
     }
 }

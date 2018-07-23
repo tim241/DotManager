@@ -30,7 +30,7 @@ namespace DotManager.Utils.Print
         private static void printPlatform(string platform, string distroName)
         {
             if (!string.IsNullOrEmpty(platform))
-                Console.WriteLine($"--> Platform: {platform}");
+                Console.WriteLine($"---> Platform: {platform}");
             if (!string.IsNullOrEmpty(distroName))
                 Console.WriteLine($"-> distro: {distroName}");
         }
@@ -63,6 +63,9 @@ namespace DotManager.Utils.Print
             else if (!string.IsNullOrEmpty(dest) &&
                     array != null)
                 printPlatform(platformName, distroName);
+            // Else verify that deps isn't empty
+            else if(!string.IsNullOrEmpty(deps))
+                printPlatform(platformName, distroName);
             // Show dependencies if it has a value
             if (deps != null)
                 Console.WriteLine($"-> Dependencies: {deps}");
@@ -90,8 +93,8 @@ namespace DotManager.Utils.Print
                 }
             }
             // Loop over each array and print relevant information
-            printLoop(dirs, "directory:", "--> Directories");
-            printLoop(files, "file:", "--> Files");
+            printLoop(dirs, "->", "--> Directories");
+            printLoop(files, "->", "--> Files");
             // Verify that dest isn't empty
             if (dest != null)
                 Console.WriteLine($"--> Destination: {Env.Path.Get(dest)}");

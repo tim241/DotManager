@@ -68,6 +68,10 @@ namespace DotManager.Utils.Settings
                     }
                 }
             }
+            // Return true when array is null
+            // Because array is allowed to be empty
+            else
+                return true;
             return false;
         }
         public static void Config()
