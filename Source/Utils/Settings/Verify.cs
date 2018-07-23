@@ -76,6 +76,15 @@ namespace DotManager.Utils.Settings
         }
         public static void Config()
         {
+            // Verify that the Linux distro is supported
+            if (OS.Check.IsLinux() &&
+                Settings.Linux.Distro != null)
+            {
+                if (!OS.Linux.SupportedDistros.ContainsKey(Settings.Linux.Distro))
+                {
+                    throw new ApplicationException("distro defined in config file is invalid!");
+                }
+            }
             if (!checkArray(Settings.Linux.Files) ||
                 !checkArray(Settings.Windows.Files))
             {
@@ -87,7 +96,7 @@ namespace DotManager.Utils.Settings
                 if (!(OS.Check.IsLinux() && checkDirectory(Settings.Linux.Files, Settings.Linux.FilesDest)) &&
                     !(OS.Check.IsWindows() && checkDirectory(Settings.Windows.Files, Settings.Windows.FilesDest)))
                 {
-                    throw new ApplicationException("filedest is invalid");
+                    throw new ApplicationException("filedest defined in config file is invalid");
                 }
             }
         }
