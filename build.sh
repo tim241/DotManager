@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-dotnet build -c Release
+dotnet publish -r linux-x64 --self-contained -c Release
