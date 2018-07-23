@@ -34,3 +34,6 @@ msbuild.wrn
 .vs/
 # Rider
 .idea/
+
+# Ignore YAML files
+*.yaml

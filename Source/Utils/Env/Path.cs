@@ -35,6 +35,9 @@ namespace DotManager.Utils.Env
                 slash = @"\";
             else if(OS.Check.IsLinux())
                 slash = @"/";
+            // Set i to 1
+            // Set pathLength to the amount of items in path
+            int i = 1, pathLength = path.Split(slash).Length;
             // Split given path by slash and loop over each item
             foreach (string folder in path.Split(slash))
             {
@@ -53,8 +56,13 @@ namespace DotManager.Utils.Env
                 }
                 else
                     returnPath += folder;
-                // Append slash
-                returnPath += slash;
+                // Append slash if i is less than the length of the given path
+                // Because if the last item is a file, we wouldn't want to append a slash
+                // 
+                if(i < pathLength)
+                    returnPath += slash;
+                // Increase i
+                i++;
             }
             return returnPath;
         }
