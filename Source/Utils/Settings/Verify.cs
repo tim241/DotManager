@@ -51,6 +51,22 @@ namespace DotManager.Utils.Settings
             }
             return true;
         }
+        // Verify that directory exists when array isn't emtpy
+        private static bool checkDirectory(string[] array, string directory)
+        {
+            if(array != null)
+            {
+                string fileDest = Env.Path.Get(directory);
+                if(!string.IsNullOrEmpty(fileDest))
+                {
+                    if(Directory.Exists(fileDest))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public static void Config()
         {
             if (!checkArray(Settings.Linux.Files) ||
@@ -58,6 +74,11 @@ namespace DotManager.Utils.Settings
             {
 
                 throw new ApplicationException("files defined in config file don't exist!");
+            }
+            if(!(OS.Check.IsLinux() && checkDirectory(Settings.Linux.Files, Settings.Linux.FilesDest)) &&
+                !(OS.Check.IsWindows() && checkDirectory(Settings.Windows.Files, Settings.Windows.FilesDest)))
+            {
+                throw new ApplicationException("filedest is invalid");
             }
         }
     }
