@@ -29,10 +29,14 @@ namespace DotManager.Utils.Settings
         {
             foreach (string item in array)
             {
-                if (!File.Exists(Env.Path.Get(item))
-                    && !Directory.Exists(Env.Path.Get(item)))
+                // Sanity check
+                if (!string.IsNullOrEmpty(item))
                 {
-                    return false;
+                    if (!File.Exists(Env.Path.Get(item))
+                        && !Directory.Exists(Env.Path.Get(item)))
+                    {
+                        return false;
+                    }
                 }
             }
             return true;
