@@ -35,11 +35,13 @@ namespace DotManager.Utils.Env
                 slash = @"\";
             else if(OS.Check.IsLinux())
                 slash = @"/";
+            // Split path by slash
+            string[] splitPath = path.Split(slash);
             // Set i to 1
             // Set pathLength to the amount of items in path
-            int i = 1, pathLength = path.Split(slash).Length;
-            // Split given path by slash and loop over each item
-            foreach (string folder in path.Split(slash))
+            int i = 1, pathLength = splitPath.Length;
+            // Loop over each item in the splitPath array
+            foreach (string folder in splitPath)
             {
                 if (folder.StartsWith(@"$") ||
                     (folder.StartsWith(@"%") && folder.EndsWith(@"%")))
