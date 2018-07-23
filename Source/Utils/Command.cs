@@ -26,6 +26,8 @@ namespace DotManager.Utils
     public class Command
     {
         public static string Output;
+        // Execute command
+        //
         public static int Exec(string command, string arguments = null, bool waitForExit = true)
         {
             // Verify that command isn't null

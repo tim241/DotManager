@@ -23,6 +23,7 @@ using System.Diagnostics;
 using DotManager;
 using DotManager.Utils;
 using DotManager.Utils.Parser;
+using System.Collections.Generic;
 
 namespace DotManager
 {
@@ -30,12 +31,14 @@ namespace DotManager
     class Program
     {
         // Get current executable filename
+        //
         static string ExecutableFileName = Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
         // Parse arguments
+        //
         static void ParseArguments(string[] args)
         {
             string configFile = null;
-            bool configDryRun = false;
+            bool install = false;
             foreach (string argument in args)
             {
                 if(argument.StartsWith("--config="))
@@ -45,11 +48,11 @@ namespace DotManager
                     case "--create-example":
                         Config.CreateExample();
                         break;
-                    case "--dry-run":
-                        configDryRun = true;
-                        break;
                     case "--help":
                         Program.Usage();
+                        break;
+                    case "--install":
+                        install = true;
                         break;
                     default:
                         break;
@@ -59,13 +62,15 @@ namespace DotManager
             {
                 Config.Read(configFile);
                 Utils.Settings.Verify.Config();
-                if(!configDryRun)
+                if(!install)
                 {
-                    //
+                    // Show information about config
+                    Utils.Print.Info.Settings();
                 }
             }
         }
         // Display usage
+        //
         static void Usage()
         {
             Console.Write(ExecutableFileName + " --help\n" +
@@ -74,6 +79,7 @@ namespace DotManager
                           ExecutableFileName + " --dry-run\n");
         }
         // Main
+        //
         static void Main(string[] args)
         {
             // Verify that OS is supported

@@ -25,6 +25,7 @@ namespace DotManager.Utils.Settings
     public class Verify
     {
         // Verify that each file/folder in specified array exists
+        //
         private static bool checkFilesInArray(string[] array)
         {
             foreach (string item in array)
@@ -42,6 +43,7 @@ namespace DotManager.Utils.Settings
             return true;
         }
         // Verify array
+        //
         private static bool checkArray(string[] array)
         {
             if (array != null)
@@ -52,14 +54,15 @@ namespace DotManager.Utils.Settings
             return true;
         }
         // Verify that directory exists when array isn't emtpy
+        //
         private static bool checkDirectory(string[] array, string directory)
         {
-            if(array != null)
+            if (array != null)
             {
                 string fileDest = Env.Path.Get(directory);
-                if(!string.IsNullOrEmpty(fileDest))
+                if (!string.IsNullOrEmpty(fileDest))
                 {
-                    if(Directory.Exists(fileDest))
+                    if (Directory.Exists(fileDest))
                     {
                         return true;
                     }
@@ -75,10 +78,13 @@ namespace DotManager.Utils.Settings
 
                 throw new ApplicationException("files defined in config file don't exist!");
             }
-            if(!(OS.Check.IsLinux() && checkDirectory(Settings.Linux.Files, Settings.Linux.FilesDest)) &&
-                !(OS.Check.IsWindows() && checkDirectory(Settings.Windows.Files, Settings.Windows.FilesDest)))
+            if (Settings.Linux.Files != null || Settings.Windows.Files != null)
             {
-                throw new ApplicationException("filedest is invalid");
+                if (!(OS.Check.IsLinux() && checkDirectory(Settings.Linux.Files, Settings.Linux.FilesDest)) &&
+                    !(OS.Check.IsWindows() && checkDirectory(Settings.Windows.Files, Settings.Windows.FilesDest)))
+                {
+                    throw new ApplicationException("filedest is invalid");
+                }
             }
         }
     }

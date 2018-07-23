@@ -28,6 +28,11 @@ namespace DotManager.Utils.Env
         // Supports both Windows & Linux variables
         public static string Get(string path)
         {
+            // Make sure path isn't null
+            // else, return null
+            if(path == null)
+                return null;
+            // Prepare returnpath and slash
             string returnPath = null, slash = null;
             // Use \ as slash for Windows
             // Use / as slash for Linux
